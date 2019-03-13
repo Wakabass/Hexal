@@ -1,0 +1,138 @@
+@import 'about';
+
+$arrowWidth: 107px;
+
+nav {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    a {
+        display: inline-block;
+        color: inherit;
+        padding: (($arrowWidth / $sqrt3) / 3);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.9em;
+        transition: color 0.2s;
+
+        @media (min-width: 520px) and (max-width: 600px) {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    a:hover {
+        color: $darkBrandColor;
+    }
+
+    .active {
+        color: $brandColor;
+    }
+}
+
+.fixedMenu {
+    .leftNavContainer, .rightNavContainer {
+        border-bottom-style: none;
+    }
+}
+
+.visibleMenu {
+    top: 0px !important;
+}
+
+.animatedMenu {
+    -webkit-transition: top 0.8s;
+}
+
+@mixin menu() {
+    position: absolute;
+    top: 0;
+}
+
+@mixin nav-left-right() {
+    @include menu();
+
+    padding-bottom: ($sectionPadding / 3);
+    border-bottom: solid 1px $borderColor;
+}
+
+.arrow {
+    @include hexagon($arrowWidth, 0px);
+    background-color: $menuBackground;
+    background-image: url("../images/arrow.png");
+    background-size: 64px 55px;
+    background-repeat: no-repeat;
+    background-position: 50% 65%;
+
+    @include menu();
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    .hexagon-before {
+        border-right: solid 1px $borderColor;
+        box-sizing: border-box;
+    }
+
+    .hexagon-after {
+        border-right: solid 1px $borderColor;
+        box-sizing: border-box;
+    }
+}
+
+@media (min-width: 520px) {
+    .leftNavContainer {
+        @include nav-left-right();
+        right: 0;
+    }
+
+    .rightNavContainer {
+        @include nav-left-right();
+        left: 0;
+        text-align: right;
+    }
+
+    .rightNav, .leftNav {
+        border-bottom: solid 1px $borderColor;
+        box-sizing: border-box;
+        background-color: $menuBackground;
+        color: white;
+        height: ($arrowWidth / $sqrt3);
+    }
+}
+
+@media (max-width: 520px) {
+    .mask {
+        @include menu();
+        box-sizing: border-box;
+        border-bottom: solid 1px $borderColor;
+        z-index: -1;
+        background-color: $menuBackground;
+        right: 0;
+        left: 0;
+        height: $arrowWidth / $sqrt3;
+    }
+
+    nav {
+        top: 0;
+        right: 0;
+        left: 0;
+        box-sizing: border-box;
+        padding-bottom: ($arrowWidth / $sqrt3);
+
+        background-color: $menuBackground;
+        color: white;
+
+        a {
+            display: block;
+            text-align: center;
+            width: 70%;
+            margin: auto;
+        }
+    }
+}

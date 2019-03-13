@@ -1,0 +1,86 @@
+$hexWidth: 201px;
+$hexMargin: 10px;
+$sqrt3: 1.73205080757;
+
+@mixin hexagon-before-after($width, $rotation) {
+    position: absolute;
+    background: inherit;
+    overflow: hidden;
+    width: inherit;
+    height: inherit;
+    transform: rotate($rotation);
+
+    &:before {
+        display: block;
+        content: "";
+        background: inherit;
+
+        width: $width;
+        height: 2 * $width / $sqrt3;
+    }
+}
+
+@mixin hexagon($width, $margin) {
+    width: $width;
+    height: $width / $sqrt3;
+    margin-bottom: ($width / (2 * $sqrt3) - 2 + $sqrt3 * $margin);
+    margin-left: $margin;
+    margin-right: $margin;
+
+    background-size: auto (2 * $width / $sqrt3);
+    background-position: center center;
+
+    .hexagon-before {
+        @include hexagon-before-after($width, 60deg);
+    }
+
+    .hexagon-after {
+        @include hexagon-before-after($width, 120deg);
+    }
+
+    .hexagon-before:before {
+        transform: rotate(-60deg)
+                   translate($width / 4,
+                                - $width * (1 / $sqrt3 - $sqrt3 / 4));
+    }
+
+    .hexagon-after:before {
+        transform: rotate(-120deg)
+                   translate($width / 4,
+                                $width * (1 / $sqrt3 - $sqrt3 / 4));
+    }
+}
+
+.hexGrid {
+    box-sizing: border-box;
+    max-width: 6 * $hexWidth;
+    margin: auto;
+    padding-top: $hexWidth / (2 * $sqrt3);
+    overflow: auto;
+
+    .hex {
+        @include hexagon($hexWidth, $hexMargin);
+        float: left;
+    }
+
+    .hexMask {
+        background-color: #000000;
+        position: relative;
+        margin: 0;
+        z-index: 3;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .hexMask:hover {
+        opacity: 0.5;
+    }
+
+    .newShortRow {
+        margin-left: 2 * $hexMargin + $hexWidth / 2;
+    }
+
+    .newLongRow {
+        clear: left;
+    }
+}

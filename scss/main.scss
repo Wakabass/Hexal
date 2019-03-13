@@ -1,0 +1,61 @@
+@import 'contact';
+@import 'menu';
+
+* {
+    margin: 0;
+}
+
+body {
+    font-family: 'Open Sans';
+}
+
+h1, h2 {
+    font-family: 'Ubuntu';
+    font-weight: 400;
+}
+
+.gridContainer {
+    padding-top: $arrowWidth * 2 / $sqrt3;
+}
+
+.hexGrid {
+    padding-bottom: ($sectionPadding / 2);
+    margin-bottom: ($sectionPadding / 3) !important;
+    border-bottom: solid 1px $borderColor;
+}
+
+@mixin container() {
+    padding: $sectionPadding 0;
+    text-align: justify;
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+        line-height: 1em;
+        padding-bottom: $sectionPadding / 2;
+    }
+}
+
+.aboutContainer {
+    @include container();
+    background-color: $brandColor;
+    color: $brightBrandColor;
+
+    h2 {
+        color: $darkBrandColor;
+    }
+}
+
+.contactContainer {
+    @include container();
+    overflow: hidden;
+    background-color: $contactBackground;
+    color: $contactColor;
+
+    h2 {
+        font-weight: 300;
+    }
+}
